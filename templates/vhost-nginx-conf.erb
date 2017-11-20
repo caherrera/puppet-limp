@@ -16,8 +16,8 @@
 # Default server configuration
 #
 server {
-        listen 80 ;
-        listen [::]:80;
+        listen <%=@listen%> ;
+        listen <%=@listen_ipv6%>;
 
         # SSL configuration
         #
@@ -166,9 +166,7 @@ server {
         <%- if @lingering_timeout -%>
             lingering_timeout <%= @lingering_timeout %>;
         <%- end -%>
-        <%- if @listen -%>
-            listen <%= @listen %>;
-        <%- end -%>
+        
         <%- if @log_not_found -%>
             log_not_found <%= @log_not_found %>;
         <%- end -%>

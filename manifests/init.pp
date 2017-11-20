@@ -42,7 +42,11 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
-class limp {
+class limp (
+  String $php_version        = "5.6",
+  String $mysql_rootpassword = 'mV=[b,?GUwM7K/%@'
+) {
+
 
   class { 'limp::ppa':
     notify => Class['apt::update']
@@ -50,13 +54,42 @@ class limp {
   }
 
   package { 'git':
-    ensure => latest,
-    require => [Class['limp::ppa'],Class['Apt::Update']],
+    ensure  => latest,
+    require => [Class['limp::ppa'], Class['Apt::Update']],
   }
 
   class { '::nginx': }
 
-  class { ''}
+  class { '::php::globals':
+    php_version => $php_version,
+    config_root => "/etc/php/$php_version",
+  } ->
+  class { '::php':
+    manage_repos => true,
+    extensions   => {
+
+      'curl'     => {},
+      'gd'       => {},
+      'imap'     => {},
+      'mbstring' => {},
+      'mcrypt'   => {},
+      'mysql'    => {},
+      'odbc'     => {},
+      'soap'     => {},
+
+      'xmlrpc'   => {},
+      'xsl'      => {},
+      'zip'      => {},
+      'bz2'      => {},
+      'ldap'     => {}
+
+
+    }
+  }
+
+  class { '::mysql::server':
+    root_password => $mysql_rootpassword,
+  }
 
 
 }
