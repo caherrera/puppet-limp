@@ -1,0 +1,26 @@
+{
+  "name": "cherrera-limp",
+  "version": "0.1.0",
+  "author": "cherrera",
+  "summary": "Puppet module for create Ubuntu/Nginx/PHP/Mysql",
+  "license": "Apache-2.0",
+  "source": "https://github.com/caherrera/puppet-limp.git",
+  "project_page": "https://github.com/caherrera/puppet-limp",
+  "issues_url": "https://github.com/caherrera/puppet-limp/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0"
+    },
+    {
+      "name":"puppetlabs-apt",
+      "version_requirement": ">= 4.3.0"
+    },
+    {
+      "name": "puppet-nginx",
+      "version_requirement": ">= 0.8.0"
+    }
+  ],
+  "data_provider": null
+}
+
