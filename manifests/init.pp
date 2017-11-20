@@ -55,6 +55,8 @@ class limp {
   }
 
   class { '::nginx': }
-  
+
+  class { ''}
+
 
 }
