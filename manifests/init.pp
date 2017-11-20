@@ -92,4 +92,10 @@ class limp (
   }
 
 
+  package { 'language-pack-es':
+    ensure => present,
+    notify => [Service['php5.6-fpm'], Service["php$php_version-fpm"]]
+  }
+
+
 }
