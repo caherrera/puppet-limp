@@ -64,7 +64,7 @@ define limp::nginx::vhost (
   $satisfy                          = undef,
   $send_lowat                       = undef,
   $send_timeout                     = undef,
-  $sendfile                         = undef,
+  $sendfile                         = 'off',
   $sendfile_max_chunk               = undef,
   $server_tokens                    = undef,
   $tcp_nodelay                      = undef,

@@ -43,29 +43,40 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class limp (
-  String $php_version        = "5.6",
+  String $php_version        = "7.0",
   String $mysql_rootpassword = 'mV=[b,?GUwM7K/%@'
 ) {
 
-
-  class { 'limp::ppa':
-    notify => Class['apt::update']
-
+  case $::osfamily {
+    'redhat': {
+      Limp::Repo{'70':}
+      $git_require = []
+    }
+    'debian': {
+      class { 'limp::ppa': notify => Class['apt::update'] }
+      $git_require = [Class['limp::ppa'], Class['Apt::Update']]
+    }
   }
+
 
   package { 'git':
     ensure  => latest,
-    require => [Class['limp::ppa'], Class['Apt::Update']],
+    require => $git_require,
   }
 
   class { '::nginx': }
 
+
+
   class { '::php::globals':
-    php_version => $php_version,
-    config_root => "/etc/php/$php_version",
+    php_version    => $php_version,
+    config_root    => "/etc/php/$php_version",
+
   } ->
   class { '::php':
+
     manage_repos => true,
+
     extensions   => {
 
       'curl'     => {},
@@ -87,14 +98,21 @@ class limp (
     }
   }
 
+
   class { '::mysql::server':
     root_password => $mysql_rootpassword,
   }
 
+  case $::osfamily {
+    'redhat': {
 
-  package { 'language-pack-es':
-    ensure => present,
-    notify => [Service['php5.6-fpm'], Service["php$php_version-fpm"]]
+    }
+    'debian': {
+      package { 'language-pack-es':
+        ensure => present,
+        notify => [Service["php$php_version-fpm"], Service["php$php_version-fpm"]]
+      }
+    }
   }
 
 
