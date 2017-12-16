@@ -43,13 +43,16 @@
 # Copyright 2017 Your name here, unless otherwise noted.
 #
 class limp (
-  String $php_version        = "7.0",
-  String $mysql_rootpassword = 'mV=[b,?GUwM7K/%@'
+  String $php_version          = "7.0",
+  String $mysql_rootpassword   = 'mV=[b,?GUwM7K/%@',
+  Enum['on', 'off']  $sendfile = 'on',
+  String $daemon_user          = undef
+
 ) {
 
   case $::osfamily {
     'redhat': {
-      Limp::Repo{'70':}
+      Limp::Repo { '70': }
       $git_require = []
     }
     'debian': {
@@ -64,13 +67,16 @@ class limp (
     require => $git_require,
   }
 
-  class { '::nginx': }
+  class { '::nginx':
+    sendfile=>$sendfile,
+    daemon_user=>$daemon_user
+  }
 
 
 
   class { '::php::globals':
-    php_version    => $php_version,
-    config_root    => "/etc/php/$php_version",
+    php_version => $php_version,
+    config_root => "/etc/php/$php_version",
 
   } ->
   class { '::php':
@@ -81,9 +87,9 @@ class limp (
 
       'curl'     => {},
       'gd'       => {},
-      'imap'     => {},
+      # 'imap'     => {},
       'mbstring' => {},
-      'mcrypt'   => {},
+      # 'mcrypt'   => {}, //obsolete package
       'mysql'    => {},
       'odbc'     => {},
       'soap'     => {},
