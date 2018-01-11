@@ -46,7 +46,7 @@ class limp (
   String $php_version          = "7.0",
   String $mysql_rootpassword   = 'mV=[b,?GUwM7K/%@',
   Enum['on', 'off']  $sendfile = 'on',
-  String $daemon_user          = undef
+  String $daemon_user          = $::nginx::params::daemon_user
 
 ) {
 
