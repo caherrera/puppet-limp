@@ -132,7 +132,7 @@ class limp (
 
 
     }
-  } ~> Class['php::fpm::service']
+  }
 
 
   class { '::mysql::server':
