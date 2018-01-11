@@ -54,10 +54,29 @@ class limp (
     'redhat': {
       Limp::Repo { '70': }
       $git_require = []
+      $fpm_user = 'nginx'
+      $fpm_group = 'nginx'
     }
     'debian': {
+      $fpm_user = 'www-data'
+      $fpm_group = 'www-data'
       class { 'limp::ppa': notify => Class['apt::update'] }
       $git_require = [Class['limp::ppa'], Class['Apt::Update']]
+    }
+    'suse': {
+      $fpm_user = 'wwwrun'
+      $fpm_group = 'www'
+    }
+    'freebsd': {
+      $fpm_user = 'www'
+      $fpm_group = 'www'
+    }
+    'archlinux': {
+      $fpm_user = 'root'
+      $fpm_group = 'root'
+    }
+    default: {
+      fail("Unsupported osfamily: ${::osfamily}")
     }
   }
 
@@ -74,6 +93,7 @@ class limp (
 
 
 
+
   class { '::php::globals':
     php_version => $php_version,
     config_root => "/etc/php/$php_version",
@@ -83,10 +103,10 @@ class limp (
   class { '::php':
     fpm_pools    => { www => {
       listen       => "/var/run/php/php$php_version-fpm.sock",
-      listen_owner => $::php::params::fpm_user,
-      listen_group => $::php::params::fpm_group,
-      user         => $::php::params::fpm_user,
-      group        => $::php::params::fpm_group,
+      listen_owner => $fpm_user,
+      listen_group => $fpm_group,
+      user         => $fpm_user,
+      group        => $fpm_group,
     } },
     manage_repos => true,
 
