@@ -85,7 +85,7 @@ class limp (
       listen       => "/var/run/php/php$php_version-fpm.sock",
       listen_owner => $::php::params::fpm_user,
       listen_group => $::php::params::fpm_group,
-      owner        => $::php::params::fpm_user,
+      user         => $::php::params::fpm_user,
       group        => $::php::params::fpm_group,
     } },
     manage_repos => true,
