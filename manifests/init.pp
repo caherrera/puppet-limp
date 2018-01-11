@@ -68,8 +68,8 @@ class limp (
   }
 
   class { '::nginx':
-    sendfile=>$sendfile,
-    daemon_user=>$daemon_user
+    sendfile    => $sendfile,
+    daemon_user => $daemon_user
   }
 
 
@@ -116,7 +116,7 @@ class limp (
     'debian': {
       package { 'language-pack-es':
         ensure => present,
-        notify => [Service["php$php_version-fpm"], Service["php$php_version-fpm"]]
+        notify => Service["php$php_version-fpm"]
       }
     }
   }
