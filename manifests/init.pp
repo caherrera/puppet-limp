@@ -82,7 +82,9 @@ class limp (
   } ->
   class { '::php':
     fpm_pools    => { www => {
-      listen => "/var/run/php/php$php_version-fpm.sock"
+      listen       => "/var/run/php/php$php_version-fpm.sock",
+      listen_owner => $::php::fpm::config::user,
+      listen_group => $::php::fpm::config::group,
     } },
     manage_repos => true,
 
