@@ -62,6 +62,9 @@ class limp (
       $fpm_group = 'www-data'
       class { 'limp::ppa': notify => Class['apt::update'] }
       $git_require = [Class['limp::ppa'], Class['Apt::Update']]
+      package { 'language-pack-es':
+        ensure => present,
+      }
     }
     'suse': {
       $fpm_user = 'wwwrun'
@@ -129,23 +132,11 @@ class limp (
 
 
     }
-  }
+  } ~> Class['php::fpm::service']
 
 
   class { '::mysql::server':
     root_password => $mysql_rootpassword,
-  }
-
-  case $::osfamily {
-    'redhat': {
-
-    }
-    'debian': {
-      package { 'language-pack-es':
-        ensure => present,
-        notify => Service["php$php_version-fpm"]
-      }
-    }
   }
 
 
