@@ -78,9 +78,12 @@ class limp (
     php_version => $php_version,
     config_root => "/etc/php/$php_version",
 
+
   } ->
   class { '::php':
-
+    fpm_pools    => { www => {
+      listen => "/var/run/php/php$php_version-fpm.sock"
+    } },
     manage_repos => true,
 
     extensions   => {
