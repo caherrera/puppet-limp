@@ -1,7 +1,7 @@
 {
   "name": "cherrera-limp",
-  "version": "0.1.0",
-  "author": "cherrera",
+  "version": "4.8.1",
+  "author": "Carlos Herrera",
   "summary": "Puppet module for create Ubuntu/Nginx/PHP/Mysql",
   "license": "Apache-2.0",
   "source": "https://github.com/caherrera/puppet-limp.git",
@@ -10,25 +10,46 @@
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_requirement": ">= 1.0.0"
+      "version_requirement": ">= 4.25.1"
     },
     {
       "name": "puppetlabs-apt",
-      "version_requirement": ">= 4.3.0"
+      "version_requirement": ">= 6.3.0"
     },
     {
       "name": "puppet-nginx",
-      "version_requirement": ">= 0.8.0"
+      "version_requirement": ">= 0.16.0"
     },
     {
       "name": "puppet-php",
-      "version_requirement": ">= 5.1.0"
+      "version_requirement": ">= 6.0.3"
     },
     {
       "name": "puppetlabs-mysql",
-      "version_requirement": ">= 5.1.0"
+      "version_requirement": ">= 9.1.0"
     }
   ],
-  "data_provider": null
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "18.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.0.0 < 7.0.0"
+    }
+  ],
+  "pdk-version": "1.9.0",
+  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
+  "template-ref": "1.9.0-0-g7281db5"
 }
-

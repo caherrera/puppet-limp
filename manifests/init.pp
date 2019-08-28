@@ -84,11 +84,6 @@ class limp (
   }
 
 
-  package { 'git':
-    ensure  => latest,
-    require => $git_require,
-  }
-
   class { '::nginx':
     sendfile    => $sendfile,
     daemon_user => $daemon_user
